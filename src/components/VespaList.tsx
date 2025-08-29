@@ -1,4 +1,4 @@
-import React from "react";
+import type { FC } from "react";
 
 type Vespa = {
   id: string;
@@ -10,11 +10,10 @@ interface Props {
   vespas: Vespa[];
 }
 
-const VespasList: React.FC<Props> = ({ vespas }) => {
+const VespasList: FC<Props> = ({ vespas }) => {
   const handleContact = (vespa: Vespa) => {
     // 1. Avisar al Google Script
-    fetch(`https://script.google.com/macros/s/AKfycbzh_msM_9_spBa14B_ZfVldpfjNuufDwMFdXUvX9Wmskxma2rBSidR2Y4jyaCoFLgDHrQ/exec?id=${vespa.id}`)
-      .catch(err => console.error("Error actualizando trabajos:", err));
+    fetch(`https://script.google.com/macros/s/AKfycbzh_msM_9_spBa14B_ZfVldpfjNuufDwMFdXUvX9Wmskxma2rBSidR2Y4jyaCoFLgDHrQ/exec?id=${vespa.id}`).catch(() => {});
 
     // 2. Redirigir a WhatsApp
     window.location.href = `https://wa.me/${vespa.telefono}`;

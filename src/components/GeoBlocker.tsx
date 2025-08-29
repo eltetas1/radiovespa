@@ -18,8 +18,7 @@ export default function GeoBlocker() {
           setBloqueado(true);
         }
       })
-      .catch((err) => {
-        console.warn("No se pudo verificar ubicación, permitiendo acceso:", err);
+      .catch(() => {
         setBloqueado(false); // ⚠️ No bloqueamos si falla
       });
   }, []);

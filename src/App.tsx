@@ -4,7 +4,7 @@ import { Zap, MapPin, Clock, Package } from "lucide-react";
 import CookieBanner from "./components/CookieBanner";
 import GeoBlocker from "./components/GeoBlocker";
 import { getReviewStats, type ReviewStats } from "./lib/reviews";
-import { uniq, norm, waLinkWithText, topTags, seededShuffle, dailySeed } from "./lib/utils";
+import { uniq, norm, waLinkWithText, topTags, seededShuffle } from "./lib/utils";
 
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyveLabAQw4vpA7dJ74_M1K_7oKP22uHuaqgOd8y-H0X2eUxxHNdfguJVgkJHSP6X18Uw/exec";
 
@@ -42,8 +42,7 @@ function LazyStats({
               const st = await getReviewStats(id);
               if (!cancelled) onLoaded(id, st);
             } catch (err) {
-              console.error("Error cargando stats (lazy) para", id, err);
-              if (!cancelled) onLoaded(id, { total: 0, recommends: 0, tagsCount: {} } as ReviewStats);
+                            if (!cancelled) onLoaded(id, { total: 0, recommends: 0, tagsCount: {} } as ReviewStats);
             }
           }
         });
@@ -82,8 +81,7 @@ export default function App() {
         const mezclados = seededShuffle(visibles);
         if (isMounted) setAll(mezclados);
       } catch (err) {
-        console.error("Error cargando vespas:", err);
-        if (isMounted) setAll([]);
+                if (isMounted) setAll([]);
       } finally {
         if (isMounted) setLoadingVespas(false);
       }

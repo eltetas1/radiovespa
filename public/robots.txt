@@ -1,3 +1,10 @@
+# Bloquear a bots de rastrear zonas sensibles
 User-agent: *
+Disallow: /api/
+Disallow: /admin/
+Disallow: /private/
+Disallow: /go/
 Allow: /
+
+# Enlace al sitemap
 Sitemap: https://radiovespa-ceuta.es/sitemap.xml

@@ -1,4 +1,3 @@
-// src/components/Reviews.tsx
 import { useEffect, useMemo, useState } from "react";
 import {
   getReviewStats,
