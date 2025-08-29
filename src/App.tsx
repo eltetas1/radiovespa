@@ -6,6 +6,8 @@ import GeoBlocker from "./components/GeoBlocker";
 import { getReviewStats, type ReviewStats } from "./lib/reviews";
 import { uniq, norm, waLinkWithText, topTags, seededShuffle, dailySeed } from "./lib/utils";
 
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyveLabAQw4vpA7dJ74_M1K_7oKP22uHuaqgOd8y-H0X2eUxxHNdfguJVgkJHSP6X18Uw/exec";
+
 function RecommendPill({ stats }: { stats?: ReviewStats }) {
   if (!stats || stats.total === 0) return null;
   const pct = Math.round((stats.recommends / stats.total) * 100);
@@ -67,6 +69,8 @@ export default function App() {
   const dq = useDeferredValue(q);
   const [statsMap, setStatsMap] = useState<Record<string, ReviewStats>>({});
   const [loadingVespas, setLoadingVespas] = useState(true);
+  const lastClickRef = useRef<Record<string, number>>({});
+
 
   useEffect(() => {
     let isMounted = true;
@@ -113,6 +117,29 @@ export default function App() {
     const resto = filtered.filter((v) => !v.destacado);
     return [...destacados, ...resto];
   }, [all, servicio, tamano, dq]);
+
+  function handleWhatsappClick(v: Vespa) {
+    const now = Date.now();
+    if (now - (lastClickRef.current[v.id] || 0) < 800) return; // evita doble clic rápido
+    lastClickRef.current[v.id] = now;
+
+    // 1. Sumar en Google Sheets
+    fetch(`${SCRIPT_URL}?id=${encodeURIComponent(v.id)}`, {
+      method: "GET",
+      mode: "no-cors",
+      keepalive: true,
+    }).catch(() => {});
+
+    // 2. Abrir WhatsApp
+    window.open(
+      waLinkWithText(
+        v.telefono,
+        `Hola 👋, vengo de RadioVespa. Quisiera contactar con *${v.nombre}*. ¿Está disponible?`
+      ),
+      "_blank"
+    );
+  }
+
 
   return (
     <>
@@ -284,19 +311,12 @@ export default function App() {
                       {v.notas ? <p className="note">“{v.notas}”</p> : null}
                     </div>
 
-                    <div className="cta">
-                      <a
-                        href={waLinkWithText(
-                          v.telefono,
-                          `Hola 👋, vengo de RadioVespa. Quisiera contactar con *${v.nombre}*. ¿Está disponible?`
-                        )}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="btn-whatsapp"
-                      >
-                        WhatsApp
-                      </a>
-                    </div>
+<div className="cta">
+  <button onClick={() => handleWhatsappClick(v)} className="btn-whatsapp">
+    WhatsApp
+  </button>
+</div>
+
                   </div>
                 </article>
               );
