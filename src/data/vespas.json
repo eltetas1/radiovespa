@@ -1,0 +1,44 @@
+[
+  {
+    "id": "v1",
+    "nombre": "Ejemplo 1",
+    "telefono": "600111222",
+    "servicios": [
+      "muebles"
+    ],
+    "tamano": "mediana",
+    "zonas": [
+      "Centro"
+    ],
+    "horario": "mañana",
+    "notas": "",
+    "visible": true,
+    "prioridad": 0,
+    "trabajosVerificados": 10,
+    "etiquetas": [
+      "cuidadoso"
+    ]
+  },
+  {
+    "id": "v2",
+    "nombre": "Ejemplo 2",
+    "telefono": "600222333",
+    "servicios": [
+      "escombro",
+      "reformas"
+    ],
+    "tamano": "grande",
+    "zonas": [
+      "Hadú"
+    ],
+    "horario": "tarde",
+    "notas": "Camión grande",
+    "visible": true,
+    "prioridad": 1,
+    "trabajosVerificados": 25,
+    "etiquetas": [
+      "rápido"
+    ],
+    "destacado": true
+  }
+]

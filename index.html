@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <!-- Performance hints -->
+    <link rel="preconnect" href="https://www.googletagmanager.com" />
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+    <link rel="preconnect" href="https://firestore.googleapis.com" />
+    <link rel="dns-prefetch" href="https://firestore.googleapis.com" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
+    <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+    <!-- Google Analytics: cargar solo tras consentimiento (usa VITE_GA_ID) -->
+    <script type="module">
+      const GA_ID = import.meta.env.VITE_GA_ID;
+      function hasConsent() {
+        // return document.cookie.includes('cookiesAccepted=true');**
+      }
+      function loadGA() {
+        if (!GA_ID || window.gtag) return;
+        const s = document.createElement('script');
+        s.async = true;
+        s.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;
+        document.head.appendChild(s);
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){ dataLayer.push(arguments); }
+        window.gtag = gtag;
+        gtag('js', new Date());
+        gtag('config', GA_ID, { anonymize_ip: true });
+      }
+      if (hasConsent()) loadGA();
+      window.addEventListener('cookies:accepted', loadGA);
+    </script>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#00aa77"> <!-- o el color que uses -->
+
+
+    <!-- SEO básico -->
+      <title>RadioVespa Ceuta - Transporte rápido y directo</title>
+    <meta name="description" content="Encuentra Vespas disponibles en Ceuta para envíos rápidos. Únete a RadioVespa y gana visibilidad sin apps ni registros.">
+    <meta name="keywords" content="RadioVespa, Ceuta, transporte, envío, mensajería, vespas, courier, logística, repartos, directo">
+
+     <!-- Open Graph (para compartir en redes sociales) -->
+      <meta property="og:title" content="RadioVespa Ceuta - Transporte rápido y directo" />
+      <meta property="og:description" content="Servicio rápido de transporte local. Contacta directamente con Vespas en Ceuta sin intermediarios." />
+      <meta property="og:image" content="/camion-verde.png" />
+      <meta property="og:url" content="https://radiovespa-ceuta.es" />
+      <meta property="og:type" content="website" />
+
+    <title>RadioVespa Ceuta</title>
+    <link rel="manifest" href="/manifest.json" />
+    <!-- robots y sitemap -->
+        <meta name="robots" content="index, follow">
+        <link rel="canonical" href="https://radiovespa-ceuta.es">
+
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

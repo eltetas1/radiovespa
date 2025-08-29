@@ -1,0 +1,93 @@
+/* src/index.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .container-app { @apply max-w-6xl mx-auto px-4 sm:px-6 pt-5 pb-24; }
+  .header { @apply flex items-center justify-between mb-3; }
+  .header-inner { @apply flex items-center gap-3; }
+  .logo-img { @apply w-8 h-8 rounded-lg shadow-sm; }
+  .title-wrap { @apply -mt-0.5; }
+  .title { @apply text-lg font-bold leading-5; }
+  .subtitle { @apply text-xs text-slate-600 leading-4; }
+  .subheader { @apply text-sm text-slate-600 mb-2; }
+
+  .promo-banner { @apply bg-yellow-100 border border-yellow-300 text-yellow-900 rounded-xl p-4 mb-4 text-center shadow-sm; }
+  .promo-title { @apply text-base font-semibold mb-1; }
+  .promo-text { @apply text-sm mb-2; }
+  .btn-promo { @apply inline-block bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-2 px-4 rounded-lg transition-colors focus-visible:ring-2 ring-yellow-300; }
+
+  .filters { @apply grid grid-cols-1 sm:grid-cols-5 gap-3 mb-1; }
+  .input { @apply w-full rounded-lg border px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-slate-300; }
+  .input-col-2 { @apply col-span-2; }
+
+  .order-text { @apply text-right text-xs text-slate-500 mb-3; }
+  .list { @apply space-y-4; }
+
+  .card { @apply rounded-xl shadow-sm hover:shadow-md transition-shadow p-4 border; }
+  .card--featured { @apply border-yellow-400 bg-yellow-50; }
+  .card--normal { @apply border-slate-200 bg-white; }
+  .card-row { @apply flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3; }
+  .card-title { @apply text-base font-semibold leading-5; }
+
+  .row-top { @apply mt-1 flex flex-wrap items-center gap-2; }
+  .pill-verified { @apply inline-flex items-center gap-1.5 px-2 rounded-full text-xs border border-emerald-200 bg-emerald-50 text-emerald-700; }
+
+  .icon-14 { @apply w-3.5 h-3.5; }
+  .icon-16 { @apply w-4 h-4; }
+  .icon-muted { @apply text-slate-400; }
+
+  .chips { @apply flex flex-wrap gap-1.5; }
+  .chip-service { @apply px-2 rounded-full border text-xs bg-blue-50 border-blue-100 text-blue-700 hover:bg-blue-100 hover:border-blue-200 focus-visible:ring-2 ring-blue-300; }
+
+  .meta { @apply mt-2 flex flex-wrap items-center gap-3 text-sm text-slate-700; }
+  .meta-sep { @apply text-slate-300; }
+
+  .tags { @apply mt-2 flex flex-wrap gap-1.5; }
+  .chip-tag { @apply px-2 text-xs rounded-full border bg-slate-50 text-slate-700 hover:bg-slate-100 focus-visible:ring-2 ring-blue-300; }
+
+  .note { @apply mt-2 text-[13px] italic text-slate-600; }
+
+  .cta { @apply flex items-center gap-2 self-start sm:self-auto; }
+  .btn-whatsapp { @apply inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-green-600 text-white hover:bg-green-700 text-sm transition-colors focus-visible:ring-2 ring-green-300; }
+
+  /* Cookie banner */
+  .cookie-banner { @apply fixed bottom-0 left-0 right-0 bg-slate-800 text-white p-3 text-center text-sm z-50; }
+  .cookie-banner--static { @apply static bottom-auto; }
+  .cookie-actions { @apply mt-2; }
+  .link-more { @apply underline text-sm text-blue-400 hover:text-blue-600 focus-visible:ring-2 ring-blue-300 rounded-sm; }
+    .btn-cookie { @apply border-0 px-3 py-1.5 rounded cursor-pointer text-white transition-colors focus-visible:ring-2 ring-white/40; }
+  .btn-cookie--accept { @apply bg-emerald-600 hover:bg-emerald-700 mr-2; }
+  .btn-cookie--reject { @apply bg-red-600 hover:bg-red-700; }
+
+  /* Skeletons */
+  .skeleton-card { @apply rounded-xl border border-slate-200 bg-white p-4 animate-pulse; }
+  .skeleton-line { @apply bg-slate-200 rounded; height: 1rem; }
+  .skeleton-line--sm { height: 0.75rem; }
+  .skeleton-line--wide { @apply w-3/4; }
+  .skeleton-line--half { @apply w-1/2; }
+  .skeleton-line--short { @apply w-32; }
+  .skeleton-chip { @apply bg-slate-200 rounded-full; width: 4rem; height: 1.5rem; }
+  .skeleton-chip--md { width: 6rem; }
+  .skeleton-pill { @apply inline-flex items-center gap-1.5 px-2 rounded-full border bg-slate-100 text-transparent animate-pulse text-xs; }
+
+/* Ajuste de padding vertical fino para chips/pills */
+  .pill-verified, .chip-service, .chip-tag { padding-block: 3px; }
+}
+
+/* Safe-area para dispositivos con notch */
+.cookie-banner { padding-bottom: calc(0.75rem + env(safe-area-inset-bottom)); }
+
+/* Respeto a reduce-motion */
+@media (prefers-reduced-motion: reduce) {
+  .btn-promo, .btn-whatsapp, .card { transition: none !important; }
+}
+
+/* Opcional: base muy ligera para que se vea como antes */
+:root { 
+  color-scheme: light; 
+}
+body { 
+  @apply bg-slate-50 text-slate-900; 
+}
