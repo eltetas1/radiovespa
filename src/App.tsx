@@ -6,6 +6,9 @@ import GeoBlocker from "./components/GeoBlocker";
 import { getReviewStats, type ReviewStats } from "./lib/reviews";
 import { uniq, norm, waLinkWithText, topTags, seededShuffle } from "./lib/utils";
 
+const RV_SECRET = "abcd1234-efgh5678-ijkl9012-mnop3456"; // mismo que en Apps Script
+
+
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyveLabAQw4vpA7dJ74_M1K_7oKP22uHuaqgOd8y-H0X2eUxxHNdfguJVgkJHSP6X18Uw/exec";
 
 function RecommendPill({ stats }: { stats?: ReviewStats }) {
@@ -50,6 +53,33 @@ function LazyStats({
       { rootMargin: "200px 0px", threshold: 0.01 }
     );
     io.observe(el);
+
+function handleWhatsappClick(v: Vespa) {
+  // Construye query con el token
+  const qs = `id=${encodeURIComponent(v.id)}&t=${encodeURIComponent(RV_SECRET)}`;
+
+  // Pixel invisible (fallback) para asegurar el disparo
+  const img = new Image();
+  img.src = `${SCRIPT_URL}?${qs}`;
+
+  // Fetch “fire & forget” (por si el pixel se pierde)
+  fetch(`${SCRIPT_URL}?${qs}`, { method: "GET", mode: "no-cors", keepalive: true }).catch(() => {});
+
+  // (Opcional) Evento de analítica
+  try { (window as any).gtag?.('event', 'whatsapp_click', { vespa_id: v.id }); } catch {}
+
+  // Abrir WhatsApp
+  window.open(
+    waLinkWithText(
+      v.telefono,
+      `Hola 👋, vengo de RadioVespa. Quisiera contactar con *${v.nombre}*. ¿Está disponible?`
+    ),
+    "_blank"
+  );
+}
+
+
+
     return () => {
       cancelled = true;
       io.disconnect();
@@ -121,12 +151,12 @@ export default function App() {
     if (now - (lastClickRef.current[v.id] || 0) < 800) return; // evita doble clic rápido
     lastClickRef.current[v.id] = now;
 
-    // 1. Sumar en Google Sheets
-    fetch(`${SCRIPT_URL}?id=${encodeURIComponent(v.id)}`, {
-      method: "GET",
-      mode: "no-cors",
-      keepalive: true,
-    }).catch(() => {});
+// 1. Sumar en Google Sheets con token
+fetch(`${SCRIPT_URL}?id=${encodeURIComponent(v.id)}&t=${encodeURIComponent(RV_SECRET)}`, {
+  method: "GET",
+  mode: "no-cors",
+  keepalive: true,
+}).catch(() => {});
 
     // 2. Abrir WhatsApp
     window.open(
@@ -314,6 +344,7 @@ export default function App() {
     WhatsApp
   </button>
 </div>
+
 
                   </div>
                 </article>

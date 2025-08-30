@@ -1,6 +1,10 @@
 import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 
+// al aceptar:
+document.cookie = "cookiesAccepted=true; path=/; max-age=31536000; SameSite=Lax";
+window.dispatchEvent(new Event("cookies:accepted"));
+
 function CookieBanner() {
   const [showBanner, setShowBanner] = useState(false);
   const [isAtBottom, setIsAtBottom] = useState(false);
