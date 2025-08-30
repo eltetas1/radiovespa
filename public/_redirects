@@ -1,1 +1,7 @@
-/*    /index.html   200
+# Forzar HTTPS y quitar www
+http://radiovespa-ceuta.es/*       https://radiovespa-ceuta.es/:splat   301!
+http://www.radiovespa-ceuta.es/*   https://radiovespa-ceuta.es/:splat   301!
+https://www.radiovespa-ceuta.es/*  https://radiovespa-ceuta.es/:splat   301!
+
+# SPA fallback (React)
+ /*    /index.html   200
